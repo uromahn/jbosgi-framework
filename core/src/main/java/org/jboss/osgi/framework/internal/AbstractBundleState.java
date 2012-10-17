@@ -156,6 +156,8 @@ abstract class AbstractBundleState implements XBundle {
             result = (T) getStorageState();
         } else if (type.isAssignableFrom(BundleManager.class)) {
             result = (T) getBundleManager();
+        } else if (type.isAssignableFrom(BundleWiring.class)) {
+            result = (T) getBundleWiring();
         }
         return result;
     }
@@ -394,7 +396,11 @@ abstract class AbstractBundleState implements XBundle {
 
     @Override
     public boolean isResolved() {
-        return getBundleRevision().getWiring() != null;
+        return getBundleWiring() != null;
+    }
+
+    BundleWiring getBundleWiring() {
+        return getBundleRevision().getWiring();
     }
 
     boolean isUninstalled() {
@@ -600,7 +606,7 @@ abstract class AbstractBundleState implements XBundle {
                         resolverPlugin.resolveAndApply(mandatoryResources, optionalResources);
 
                         if (LOGGER.isDebugEnabled()) {
-                            BundleWiring wiring = getBundleRevision().getWiring();
+                            BundleWiring wiring = getBundleWiring();
                             LOGGER.tracef("Required resource wires for: %s", wiring.getResource());
                             for (Wire wire : wiring.getRequiredResourceWires(null)) {
                                 LOGGER.tracef("   %s", wire);
