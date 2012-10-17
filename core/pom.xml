@@ -76,13 +76,6 @@
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
         </dependency>
-<<<<<<< HEAD
-=======
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.enterprise</artifactId>
-        </dependency>
->>>>>>> Initial R5 implementation
 
         <!-- Provided Dependencies -->
         <dependency>
