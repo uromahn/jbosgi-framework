@@ -222,13 +222,13 @@ public class SystemPackageDependencyTestCase extends OSGiTest {
     }
 
     @Test
-    public void testXMLParserImportFromCompendium() throws Exception {
+    public void testXMLParserImportFromEnterprise() throws Exception {
         Map<String, String> configuration = new HashMap<String, String>();
         Framework framework = createFramework(configuration);
         BundleContext context = framework.getBundleContext();
-        File compFile = getTestArchiveFile("bundles/org.osgi.compendium.jar");
-        Bundle compendium = context.installBundle(compFile.getCanonicalPath());
-		assertLoadClass(compendium, XMLParserActivator.class.getName(), compendium);
+        File compFile = getTestArchiveFile("bundles/org.osgi.enterprise.jar");
+        Bundle enterprise = context.installBundle(compFile.getCanonicalPath());
+		assertLoadClass(enterprise, XMLParserActivator.class.getName(), enterprise);
         JavaArchive archive = getBundleG();
         try {
             Bundle bundle = context.installBundle(archive.getName(), toInputStream(archive));

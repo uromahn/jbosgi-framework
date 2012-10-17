@@ -62,7 +62,7 @@ public class AutoInstallTestCase extends AbstractFrameworkLaunchTest {
 
         Assert.assertTrue("File exists: " + fileB, fileB.exists());
 
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         initprops.put(Constants.PROPERTY_AUTO_START_URLS, fileB.toURI().toString());
         initprops.put(Constants.PROPERTY_FRAMEWORK_BOOTSTRAP_THREADS, new Integer(1).toString());
 
@@ -82,7 +82,7 @@ public class AutoInstallTestCase extends AbstractFrameworkLaunchTest {
         Assert.assertTrue("File exists: " + fileA, fileA.exists());
         Assert.assertTrue("File exists: " + fileB, fileB.exists());
 
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         initprops.put(Constants.PROPERTY_AUTO_START_URLS, fileA.toURI() + "," + fileB.toURI());
 
         Framework framework = newFramework(initprops);
@@ -103,7 +103,7 @@ public class AutoInstallTestCase extends AbstractFrameworkLaunchTest {
 
         Assert.assertTrue("File exists: " + fileA, fileA.exists());
 
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         initprops.put(Constants.PROPERTY_AUTO_START_URLS, fileA.toURI().toString());
 
         Framework framework = newFramework(initprops);
@@ -120,7 +120,7 @@ public class AutoInstallTestCase extends AbstractFrameworkLaunchTest {
 
         Assert.assertTrue("File exists: " + fileB, fileB.exists());
 
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         initprops.put(Constants.PROPERTY_AUTO_START_URLS, fileB.toURI().toString());
         initprops.put(Constants.PROPERTY_FRAMEWORK_BOOTSTRAP_THREADS, new Integer(1).toString());
 
@@ -143,7 +143,7 @@ public class AutoInstallTestCase extends AbstractFrameworkLaunchTest {
 
         Assert.assertTrue("File exists: " + fileB, fileB.exists());
 
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         initprops.put(Constants.PROPERTY_AUTO_START_URLS, fileB.toURI().toString());
         initprops.put(Constants.PROPERTY_FRAMEWORK_BOOTSTRAP_THREADS, new Integer(1).toString());
 

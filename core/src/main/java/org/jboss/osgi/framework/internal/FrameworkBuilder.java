@@ -50,14 +50,14 @@ import org.osgi.framework.launch.Framework;
  */
 public final class FrameworkBuilder {
 
-    private final Map<String, Object> initialProperties = new HashMap<String, Object>();
+    private final Map<String, String> initialProperties = new HashMap<String, String>();
     private final Set<ServiceName> excludedServices = new HashSet<ServiceName>();
     private ServiceContainer serviceContainer;
     private ServiceTarget serviceTarget;
     private Mode initialMode = Mode.LAZY;
     private boolean closed;
 
-    public FrameworkBuilder(Map<String, Object> props) {
+    public FrameworkBuilder(Map<String, String> props) {
         if (props != null) {
             initialProperties.putAll(props);
         }
@@ -72,7 +72,7 @@ public final class FrameworkBuilder {
         return value != null ? value : defaultValue;
     }
 
-    public Map<String, Object> getProperties() {
+    public Map<String, String> getProperties() {
         return Collections.unmodifiableMap(initialProperties);
     }
 

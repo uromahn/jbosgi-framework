@@ -50,7 +50,7 @@ public class PersistentBundlesTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testInstalledBundle() throws Exception {
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         Framework framework = newFramework(initprops);
 
         framework.start();
@@ -100,7 +100,7 @@ public class PersistentBundlesTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testUninstalledBundle() throws Exception {
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         Framework framework = newFramework(initprops);
 
         framework.start();
@@ -127,7 +127,7 @@ public class PersistentBundlesTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testActiveBundle() throws Exception {
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         Framework framework = newFramework(initprops);
 
         framework.start();
@@ -159,7 +159,7 @@ public class PersistentBundlesTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testBundleStartLevel() throws Exception {
-        Map<String, Object> initprops = getFrameworkInitProperties(true);
+        Map<String, String> initprops = getFrameworkInitProperties(true);
         Framework framework = newFramework(initprops);
 
         framework.start();

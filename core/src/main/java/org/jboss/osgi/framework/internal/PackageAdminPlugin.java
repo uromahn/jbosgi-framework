@@ -331,7 +331,7 @@ public final class PackageAdminPlugin extends AbstractExecutorService<PackageAdm
                 Collections.sort(stopList, startLevelComparator);
 
                 for (ListIterator<HostBundleState> it = stopList.listIterator(stopList.size()); it.hasPrevious();) {
-                    HostBundleState hostBundle = it.previous();
+                    AbstractBundleState hostBundle = it.previous();
                     try {
                         hostBundle.stop(Bundle.STOP_TRANSIENT);
                     } catch (Exception th) {
@@ -351,7 +351,7 @@ public final class PackageAdminPlugin extends AbstractExecutorService<PackageAdm
                     }
                 }
 
-                for (HostBundleState hostBundle : stopList) {
+                for (AbstractBundleState hostBundle : stopList) {
                     try {
                         hostBundle.start(Bundle.START_TRANSIENT);
                     } catch (Exception th) {

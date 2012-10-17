@@ -1,5 +1,3 @@
-package org.jboss.osgi.framework.internal;
-
 /*
  * #%L
  * JBossOSGi Framework
@@ -21,6 +19,7 @@ package org.jboss.osgi.framework.internal;
  * <http://www.gnu.org/licenses/lgpl-2.1.html>.
  * #L%
  */
+package org.jboss.osgi.framework.internal;
 
 import static org.jboss.osgi.framework.internal.FrameworkLogger.LOGGER;
 
@@ -340,6 +339,7 @@ final class ServiceManagerPlugin extends AbstractService<ServiceManagerPlugin> {
      * references and can optionally shrink the set of returned services. The order in which the find hooks are called is the
      * reverse compareTo ordering of their Service References.
      */
+    @SuppressWarnings("unchecked")
     private List<ServiceState> processFindHooks(AbstractBundleState bundle, String clazz, String filterStr, boolean checkAssignable, List<ServiceState> serviceStates) {
         BundleContext context = bundle.getBundleContext();
         List<ServiceState> hookRefs = getServiceReferencesInternal(bundle, FindHook.class.getName(), NoFilter.INSTANCE, true);
@@ -356,14 +356,14 @@ final class ServiceManagerPlugin extends AbstractService<ServiceManagerPlugin> {
         Collections.reverse(sortedHookRefs);
 
         List<FindHook> hooks = new ArrayList<FindHook>();
-        for (ServiceReference hookRef : sortedHookRefs)
+        for (ServiceReference<?> hookRef : sortedHookRefs)
             hooks.add((FindHook) context.getService(hookRef));
 
-        Collection<ServiceReference> hookParam = new ArrayList<ServiceReference>();
+        Collection<ServiceReference<?>> hookParam = new ArrayList<ServiceReference<?>>();
         for (ServiceState aux : serviceStates)
             hookParam.add(aux.getReference());
 
-        hookParam = new RemoveOnlyCollection<ServiceReference>(hookParam);
+        hookParam = new RemoveOnlyCollection<ServiceReference<?>>(hookParam);
         for (FindHook hook : hooks) {
             try {
                 hook.find(context, clazz, filterStr, !checkAssignable, hookParam);

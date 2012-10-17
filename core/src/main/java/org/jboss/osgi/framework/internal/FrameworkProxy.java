@@ -28,6 +28,7 @@ import static org.jboss.osgi.framework.Constants.PROPERTY_FRAMEWORK_START_TIMEOU
 import static org.jboss.osgi.framework.internal.FrameworkLogger.LOGGER;
 import static org.jboss.osgi.framework.internal.FrameworkMessages.MESSAGES;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -419,4 +420,15 @@ final class FrameworkProxy implements Framework, Adaptable {
         future.get(timeout, TimeUnit.MILLISECONDS);
     }
 
+    @Override
+    public File getDataFile(String filename) {
+        // [TODO] R5 Bundle.getDataFile 
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int compareTo(Bundle o) {
+        // [TODO] R5 Bundle.compareTo 
+        throw new UnsupportedOperationException();
+    }
 }

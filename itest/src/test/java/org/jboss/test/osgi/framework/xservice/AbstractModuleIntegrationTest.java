@@ -1,4 +1,3 @@
-package org.jboss.test.osgi.framework.xservice;
 /*
  * #%L
  * JBossOSGi Framework
@@ -20,6 +19,7 @@ package org.jboss.test.osgi.framework.xservice;
  * <http://www.gnu.org/licenses/lgpl-2.1.html>.
  * #L%
  */
+package org.jboss.test.osgi.framework.xservice;
 
 import java.util.Collections;
 import java.util.HashMap;

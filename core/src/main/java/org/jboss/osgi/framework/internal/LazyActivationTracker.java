@@ -52,14 +52,14 @@ final class LazyActivationTracker {
         addDefinedClass(hostBundle, className);
     }
 
-    static void postDefineClass(HostBundleState hostBundle, Class<?> definedClass) {
+    static void postDefineClass(AbstractBundleState hostBundle, Class<?> definedClass) {
         LOGGER.tracef("postDefineClass %s from: %s", definedClass.getName(), hostBundle);
         if (initiatorAssociation.get() == null) {
             processActivationStack();
         }
     }
 
-    static void stopTracking(HostBundleState hostBundle, String className) {
+    static void stopTracking(AbstractBundleState hostBundle, String className) {
         LOGGER.tracef("stopTracking %s from: %s", className, hostBundle);
         initiatorAssociation.remove();
         stackAssociation.remove();

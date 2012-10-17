@@ -36,7 +36,7 @@
     <parent>
         <groupId>org.jboss.osgi.framework</groupId>
         <artifactId>jbosgi-framework-parent</artifactId>
-        <version>2.0.0.CR38-SNAPSHOT</version>
+        <version>3.0.0.Alpha1-SNAPSHOT</version>
     </parent>
 
     <name>JBossOSGi Framework iTest</name>
@@ -110,7 +110,7 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>compendium</id>
+						<id>enterprise</id>
 						<phase>test-compile</phase>
 						<goals>
 							<goal>directory-single</goal>
@@ -120,7 +120,7 @@
 							<ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
 							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>
-								<descriptor>scripts/assembly-compendium.xml</descriptor>
+								<descriptor>scripts/assembly-enterprise.xml</descriptor>
 							</descriptors>
 						</configuration>
 					</execution>
@@ -184,58 +184,6 @@
 	</build>
 
     <profiles>
-        <!--
-          Name: equinox
-          Descr: Setup for Equinox framework integration testing
-        -->
-        <profile>
-            <id>equinox</id>
-            <activation>
-                <property>
-                    <name>framework</name>
-                    <value>equinox</value>
-                </property>
-            </activation>
-            <properties>
-                <jboss.osgi.framework.properties>jboss-osgi-equinox.properties</jboss.osgi.framework.properties>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.osgi.equinox</groupId>
-                    <artifactId>jboss-osgi-equinox</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <!--
-          Name: felix
-          Descr: Setup for Felix framework integration testing
-        -->
-        <profile>
-            <id>felix</id>
-            <activation>
-                <property>
-                    <name>framework</name>
-                    <value>felix</value>
-                </property>
-            </activation>
-            <properties>
-                <jboss.osgi.framework.properties>jboss-osgi-felix.properties</jboss.osgi.framework.properties>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.osgi.felix</groupId>
-                    <artifactId>jboss-osgi-felix</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <!--
-          Name: jboss
-          Descr: Setup for MSC Framework integration testing
-        -->
         <profile>
             <id>jboss</id>
             <activation>
