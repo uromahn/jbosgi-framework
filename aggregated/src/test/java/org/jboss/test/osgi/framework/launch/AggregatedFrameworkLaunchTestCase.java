@@ -1,4 +1,5 @@
 package org.jboss.test.osgi.framework.launch;
+
 /*
  * #%L
  * JBossOSGi Framework
@@ -33,7 +34,7 @@ import org.junit.Test;
 
 /**
  * Test aggregated framework bootstrap.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 29-Jul-2010
  */
@@ -47,23 +48,28 @@ public class AggregatedFrameworkLaunchTestCase {
                 return name.startsWith("jbosgi-framework-aggregated-") && name.endsWith("-all.jar");
             }
         });
-
+        
         // Assert that the jbosgi-framework-aggregated exists
         assertEquals("Aggregated file exists: " + Arrays.asList(files), 1, files.length);
         assertTrue("File.length > 1M", files[0].length() > 1024 * 1014L);
 
-        File logManagerJar = new File("target/test-libs/jboss-logmanager.jar");
-        assertTrue("File exists: " + logManagerJar, logManagerJar.exists());
-        
+        // Build the classpath
+        String cp = files[0].getCanonicalPath();
+        String[] names = new String[] { "jboss-logmanager.jar", "org.osgi.core.jar", "org.osgi.enterprise.jar" };
+        for (String name : names) {
+            File file = new File("target/test-libs/" + name);
+            assertTrue("File exists: " + file, file.exists());
+            cp += File.pathSeparator + file.getCanonicalPath();
+        }
+
         File logConfig = new File("target/test-classes/logging.properties");
         assertTrue("File exists: " + logConfig, logConfig.exists());
-        
+
         // Run the java command
-        String jars = files[0].getCanonicalPath() + File.pathSeparator + logManagerJar.getCanonicalPath();
         String logopts = "-Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dlogging.configuration=" + logConfig.toURI();
         String javaopts = logopts + " -Dorg.osgi.framework.storage=target/osgi-store";
-        //javaopts += " -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y";
-        String cmd = "java " + javaopts + " -cp " + jars + " " + FrameworkMain.class.getName();
+        // javaopts += " -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y";
+        String cmd = "java " + javaopts + " -cp " + cp + " " + FrameworkMain.class.getName();
         Process proc = Runtime.getRuntime().exec(cmd);
         Thread.sleep(3000);
         proc.destroy();
