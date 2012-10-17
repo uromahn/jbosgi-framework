@@ -24,6 +24,7 @@ package org.jboss.osgi.framework.internal;
 import static org.jboss.osgi.framework.internal.FrameworkLogger.LOGGER;
 import static org.jboss.osgi.framework.internal.FrameworkMessages.MESSAGES;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -664,5 +665,45 @@ abstract class AbstractBundleState extends AbstractElement implements XBundle {
     @Override
     public String toString() {
         return getCanonicalName();
+    }
+
+    @Override
+    public File getDataFile(String filename) {
+        // [TODO] R5 Bundle.getDataFile
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int compareTo(Bundle o) {
+        // [TODO] R5 Bundle.compareTo
+        throw new UnsupportedOperationException();
+    }
+
+    @SuppressWarnings("serial")
+    static class BundleLock extends ReentrantLock {
+
+        enum Method {
+            RESOLVE, START, STOP, UNINSTALL
+        }
+
+        boolean tryLock(XBundle bundle, Method method) {
+            try {
+                LOGGER.tracef("Aquire %s lock on: %s", method, bundle);
+                if (tryLock(30, TimeUnit.SECONDS)) {
+                    return true;
+                } else {
+                    LOGGER.errorCannotAquireBundleLock(method.toString(), bundle);
+                    return false;
+                }
+            } catch (InterruptedException ex) {
+                LOGGER.debugf("Interupted while trying to aquire %s lock on: %s", method, bundle);
+                return false;
+            }
+        }
+
+        void unlock(XBundle bundle, Method method) {
+            LOGGER.tracef("Release %s lock on: %s", method, bundle);
+            unlock();
+        }
     }
 }

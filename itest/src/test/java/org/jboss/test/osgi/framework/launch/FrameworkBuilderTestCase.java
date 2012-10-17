@@ -68,7 +68,7 @@ public class FrameworkBuilderTestCase extends AbstractFrameworkLaunchTest {
     @Test
     public void testFrameworkInit() throws Exception {
 
-        Map<String, Object> props = getFrameworkInitProperties(true);
+        Map<String, String> props = getFrameworkInitProperties(true);
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         Framework framework = newFramework(builder);
         assertBundleState(Bundle.INSTALLED, framework.getState());
@@ -108,7 +108,7 @@ public class FrameworkBuilderTestCase extends AbstractFrameworkLaunchTest {
     @Test
     public void testFrameworkStartStop() throws Exception {
 
-        Map<String, Object> props = getFrameworkInitProperties(true);
+        Map<String, String> props = getFrameworkInitProperties(true);
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         Framework framework = newFramework(builder);
 
@@ -164,7 +164,7 @@ public class FrameworkBuilderTestCase extends AbstractFrameworkLaunchTest {
     @SuppressWarnings("unchecked")
     public void testFrameworkServices() throws Exception {
 
-        Map<String, Object> props = getFrameworkInitProperties(true);
+        Map<String, String> props = getFrameworkInitProperties(true);
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         ServiceContainer serviceContainer = builder.createServiceContainer();
         ServiceTarget serviceTarget = serviceContainer.subTarget();

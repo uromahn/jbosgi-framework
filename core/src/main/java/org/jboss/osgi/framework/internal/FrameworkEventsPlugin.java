@@ -1,4 +1,5 @@
 package org.jboss.osgi.framework.internal;
+
 /*
  * #%L
  * JBossOSGi Framework
@@ -279,8 +280,8 @@ final class FrameworkEventsPlugin extends AbstractIntegrationService<FrameworkEv
                     // This method will be called as service listeners are removed while this hook is registered.
                     for (ListenerHook hook : getServiceListenerHooks()) {
                         try {
-                            ListenerInfoImpl info = (ListenerInfoImpl) slreg.getListenerInfo();
-                            info.setRemoved(true);
+                            ListenerInfo info = slreg.getListenerInfo();
+                            ((ListenerInfoImpl) info).setRemoved(true);
                             hook.removed(Collections.singleton(info));
                         } catch (RuntimeException ex) {
                             LOGGER.errorProcessingServiceListenerHook(ex, hook);

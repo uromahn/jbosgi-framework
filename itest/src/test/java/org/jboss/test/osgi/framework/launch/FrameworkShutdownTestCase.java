@@ -47,7 +47,7 @@ public class FrameworkShutdownTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testFrameworkStopWithTimeout() throws Exception {
-        Map<String, Object> props = getFrameworkInitProperties(true);
+        Map<String, String> props = getFrameworkInitProperties(true);
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         Framework framework = newFramework(builder);
         assertBundleState(Bundle.INSTALLED, framework.getState());
@@ -65,7 +65,7 @@ public class FrameworkShutdownTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testFrameworkStopNoTimeout() throws Exception {
-        Map<String, Object> props = getFrameworkInitProperties(true);
+        Map<String, String> props = getFrameworkInitProperties(true);
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         Framework framework = newFramework(builder);
         assertBundleState(Bundle.INSTALLED, framework.getState());
@@ -83,7 +83,7 @@ public class FrameworkShutdownTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testSystemBundleStopWithTimeout() throws Exception {
-        Map<String, Object> props = getFrameworkInitProperties(true);
+        Map<String, String> props = getFrameworkInitProperties(true);
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         Framework framework = newFramework(builder);
         assertBundleState(Bundle.INSTALLED, framework.getState());
@@ -103,7 +103,7 @@ public class FrameworkShutdownTestCase extends AbstractFrameworkLaunchTest {
 
     @Test
     public void testSystemBundleStopNoTimeout() throws Exception {
-        Map<String, Object> props = getFrameworkInitProperties(true);
+        Map<String, String> props = getFrameworkInitProperties(true);
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         Framework framework = newFramework(builder);
         assertBundleState(Bundle.INSTALLED, framework.getState());

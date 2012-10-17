@@ -215,7 +215,7 @@ class DefaultBundleLifecycleHandler implements BundleLifecyclePlugin.DefaultHand
         bundleManager.uninstallBundle(dep);
     }
 
-    private void removeServicesAndListeners(HostBundleState hostState) {
+    private void removeServicesAndListeners(AbstractBundleState hostState) {
         // Any services registered by this bundle must be unregistered.
         // Any services used by this bundle must be released.
         for (ServiceState serviceState : hostState.getRegisteredServicesInternal()) {

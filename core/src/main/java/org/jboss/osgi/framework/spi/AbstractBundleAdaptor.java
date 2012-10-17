@@ -24,6 +24,7 @@ package org.jboss.osgi.framework.spi;
 import static org.jboss.osgi.framework.internal.FrameworkLogger.LOGGER;
 import static org.jboss.osgi.framework.internal.FrameworkMessages.MESSAGES;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -393,6 +394,18 @@ public class AbstractBundleAdaptor extends AbstractElement implements XBundle {
 
         XBundle other = (XBundle) obj;
         return getBundleId() == other.getBundleId();
+    }
+
+    @Override
+    public File getDataFile(String filename) {
+        // [TODO] R5 Bundle.getDataFile 
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int compareTo(Bundle o) {
+        // [TODO] R5 Bundle.compareTo 
+        throw new UnsupportedOperationException();
     }
 
     @Override

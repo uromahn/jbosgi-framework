@@ -58,8 +58,8 @@ public abstract class AbstractFrameworkLaunchTest extends OSGiTest {
 
     private Framework framework;
 
-    protected Map<String, Object> getFrameworkInitProperties(boolean cleanOnFirstInit) {
-        Map<String, Object> props = new HashMap<String, Object>();
+    protected Map<String, String> getFrameworkInitProperties(boolean cleanOnFirstInit) {
+        Map<String, String> props = new HashMap<String, String>();
         props.put(Constants.FRAMEWORK_STORAGE, getBundleStorageDir().getAbsolutePath());
         if (cleanOnFirstInit == true) {
             props.put(Constants.FRAMEWORK_STORAGE_CLEAN, Constants.FRAMEWORK_STORAGE_CLEAN_ONFIRSTINIT);
@@ -71,7 +71,7 @@ public abstract class AbstractFrameworkLaunchTest extends OSGiTest {
         return framework = builder.createFramework();
     }
 
-    protected Framework newFramework(Map<String, Object> initprops) {
+    protected Framework newFramework(Map<String, String> initprops) {
         FrameworkFactory factory = ServiceLoader.loadService(FrameworkFactory.class);
         return framework = factory.newFramework(initprops);
     }

@@ -63,7 +63,7 @@ final class FallbackLoader implements LocalLoader {
 
     private final ReentrantLock fallbackLoaderLock = new ReentrantLock();
     private final AtomicBoolean enabled = new AtomicBoolean(true);
-    private final HostBundleState hostBundle;
+    private final AbstractBundleState hostBundle;
     private final HostBundleRevision hostRev;
     private final ModuleIdentifier identifier;
     private final Set<String> importedPaths;

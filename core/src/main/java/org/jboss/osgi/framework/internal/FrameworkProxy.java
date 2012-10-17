@@ -24,6 +24,7 @@ package org.jboss.osgi.framework.internal;
 import static org.jboss.osgi.framework.internal.FrameworkLogger.LOGGER;
 import static org.jboss.osgi.framework.internal.FrameworkMessages.MESSAGES;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -275,6 +276,7 @@ final class FrameworkProxy implements Framework, Adaptable {
         final int targetState = getState();
         Runnable cmd = new Runnable() {
 
+            @Override
             public void run() {
                 try {
                     bundleManager.shutdownManager(true);
@@ -398,5 +400,17 @@ final class FrameworkProxy implements Framework, Adaptable {
         if (bundleManager == null)
             throw MESSAGES.illegalStateFrameworkNotInitialized();
         return bundleManager.getFrameworkState().getSystemBundle();
+    }
+
+    @Override
+    public File getDataFile(String filename) {
+        // [TODO] R5 Bundle.getDataFile
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int compareTo(Bundle o) {
+        // [TODO] R5 Bundle.compareTo
+        throw new UnsupportedOperationException();
     }
 }
