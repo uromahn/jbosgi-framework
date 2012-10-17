@@ -1,4 +1,5 @@
 package org.jboss.test.osgi.framework.launch;
+
 /*
  * #%L
  * JBossOSGi Framework
