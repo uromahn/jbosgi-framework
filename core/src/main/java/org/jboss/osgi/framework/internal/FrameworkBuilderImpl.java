@@ -52,14 +52,14 @@ import org.osgi.framework.launch.Framework;
  */
 public final class FrameworkBuilderImpl implements FrameworkBuilder {
 
-    private final Map<String, Object> initialProperties = new HashMap<String, Object>();
+    private final Map<String, String> initialProperties = new HashMap<String, String>();
     private final Map<FrameworkPhase, Map<ServiceName, IntegrationService<?>>> integrationServices;
     private final Mode initialMode;
     private ServiceContainer serviceContainer;
     private ServiceTarget serviceTarget;
     private boolean closed;
 
-    public FrameworkBuilderImpl(Map<String, Object> props, Mode initialMode) {
+    public FrameworkBuilderImpl(Map<String, String> props, Mode initialMode) {
         this.initialMode = initialMode;
         integrationServices = new HashMap<FrameworkPhase, Map<ServiceName, IntegrationService<?>>>();
         if (props != null) {
@@ -68,18 +68,18 @@ public final class FrameworkBuilderImpl implements FrameworkBuilder {
     }
 
     @Override
-    public Object getProperty(String key) {
+    public String getProperty(String key) {
         return getProperty(key, null);
     }
 
     @Override
-    public Object getProperty(String key, Object defaultValue) {
-        Object value = initialProperties.get(key);
+    public String getProperty(String key, String defaultValue) {
+        String value = initialProperties.get(key);
         return value != null ? value : defaultValue;
     }
 
     @Override
-    public Map<String, Object> getProperties() {
+    public Map<String, String> getProperties() {
         return Collections.unmodifiableMap(initialProperties);
     }
 

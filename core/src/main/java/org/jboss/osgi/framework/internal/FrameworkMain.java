@@ -46,8 +46,8 @@ public class FrameworkMain implements FrameworkFactory {
         framework.start();
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public Framework newFramework(Map props) {
+    @Override
+    public Framework newFramework(Map<String, String> props) {
         FrameworkBuilder builder = FrameworkBuilderFactory.create(props, Mode.ACTIVE);
         return builder.createFramework();
     }

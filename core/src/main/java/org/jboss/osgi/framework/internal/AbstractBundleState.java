@@ -684,32 +684,4 @@ abstract class AbstractBundleState extends AbstractElement implements XBundle {
         // [TODO] R5 Bundle.compareTo
         throw new UnsupportedOperationException();
     }
-
-    @SuppressWarnings("serial")
-    static class BundleLock extends ReentrantLock {
-
-        enum Method {
-            RESOLVE, START, STOP, UNINSTALL
-        }
-
-        boolean tryLock(XBundle bundle, Method method) {
-            try {
-                LOGGER.tracef("Aquire %s lock on: %s", method, bundle);
-                if (tryLock(30, TimeUnit.SECONDS)) {
-                    return true;
-                } else {
-                    LOGGER.errorCannotAquireBundleLock(method.toString(), bundle);
-                    return false;
-                }
-            } catch (InterruptedException ex) {
-                LOGGER.debugf("Interupted while trying to aquire %s lock on: %s", method, bundle);
-                return false;
-            }
-        }
-
-        void unlock(XBundle bundle, Method method) {
-            LOGGER.tracef("Release %s lock on: %s", method, bundle);
-            unlock();
-        }
-    }
 }
