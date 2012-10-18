@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -314,12 +315,37 @@ abstract class AbstractBundleContext implements BundleContext {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public <S> ServiceRegistration<S> registerService(Class<S> clazz, S service, Dictionary<String, ?> properties) {
+        if (clazz == null)
+            throw MESSAGES.illegalArgumentNull("class");
+        if (service == null)
+            throw MESSAGES.illegalArgumentNull("service");
+        checkValidBundleContext();
+        String[] classNames = new String[] { clazz.getName() };
+        ServiceManagerPlugin serviceManager = getFrameworkState().getServiceManagerPlugin();
+        ServiceState serviceState = serviceManager.registerService(bundleState, classNames, service, properties);
+        return serviceState.getRegistration();
+    }
+
+    @Override
     public ServiceReference<?> getServiceReference(String className) {
         if (className == null)
             throw MESSAGES.illegalArgumentNull("className");
         checkValidBundleContext();
         ServiceManagerPlugin serviceManager = getFrameworkState().getServiceManagerPlugin();
         ServiceState serviceState = serviceManager.getServiceReference(bundleState, className);
+        return (serviceState != null ? new ServiceReferenceWrapper(serviceState) : null);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <S> ServiceReference<S> getServiceReference(Class<S> clazz) {
+        if (clazz == null)
+            throw MESSAGES.illegalArgumentNull("className");
+        checkValidBundleContext();
+        ServiceManagerPlugin serviceManager = getFrameworkState().getServiceManagerPlugin();
+        ServiceState serviceState = serviceManager.getServiceReference(bundleState, clazz.getName());
         return (serviceState != null ? new ServiceReferenceWrapper(serviceState) : null);
     }
 
@@ -336,6 +362,23 @@ abstract class AbstractBundleContext implements BundleContext {
             result.add(serviceState.getReference());
 
         return result.toArray(new ServiceReference[result.size()]);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <S> Collection<ServiceReference<S>> getServiceReferences(Class<S> clazz, String filter) throws InvalidSyntaxException {
+        checkValidBundleContext();
+        String className = clazz != null ? clazz.getName() : null;
+        ServiceManagerPlugin serviceManager = getFrameworkState().getServiceManagerPlugin();
+        List<ServiceState> srefs = serviceManager.getServiceReferences(bundleState, className, filter, true);
+        if (srefs.isEmpty())
+            return null;
+
+        List<ServiceReference<S>> result = new ArrayList<ServiceReference<S>>();
+        for (ServiceState serviceState : srefs)
+            result.add(serviceState.getReference());
+
+        return Collections.unmodifiableList(result);
     }
 
     @Override
@@ -385,24 +428,6 @@ abstract class AbstractBundleContext implements BundleContext {
     public Filter createFilter(String filter) throws InvalidSyntaxException {
         checkValidBundleContext();
         return FrameworkUtil.createFilter(filter);
-    }
-
-    @Override
-    public <S> ServiceRegistration<S> registerService(Class<S> clazz, S service, Dictionary<String, ?> properties) {
-        // [TODO] R5 BundleContext.registerService 
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <S> ServiceReference<S> getServiceReference(Class<S> clazz) {
-        // [TODO] R5 BundleContext.getServiceReference 
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <S> Collection<ServiceReference<S>> getServiceReferences(Class<S> clazz, String filter) throws InvalidSyntaxException {
-        // [TODO] R5 BundleContext.getServiceReferences 
-        throw new UnsupportedOperationException();
     }
 
     void checkValidBundleContext() {

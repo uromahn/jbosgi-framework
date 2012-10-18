@@ -59,7 +59,7 @@
         <version.jboss.osgi.deployment>2.0.0.Alpha1</version.jboss.osgi.deployment>
         <version.jboss.osgi.metadata>3.0.0.Alpha2-SNAPSHOT</version.jboss.osgi.metadata>
         <version.jboss.osgi.resolver>4.0.0.Alpha3-SNAPSHOT</version.jboss.osgi.resolver>
-        <version.jboss.osgi.spi>4.0.0.Alpha1</version.jboss.osgi.spi>
+        <version.jboss.osgi.spi>4.0.0.Alpha2-SNAPSHOT</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>2.0.0.Alpha1</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>2.0.0.Alpha1</version.jboss.osgi.vfs>
         <version.mockito>1.8.5</version.mockito>
