@@ -47,7 +47,6 @@ import org.jboss.osgi.metadata.NativeLibraryMetaData;
 import org.jboss.osgi.metadata.OSGiMetaData;
 import org.jboss.osgi.metadata.Parameter;
 import org.jboss.osgi.metadata.ParameterizedAttribute;
-import org.jboss.osgi.metadata.VersionRange;
 import org.jboss.osgi.vfs.VFSUtils;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -56,6 +55,7 @@ import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.Version;
+import org.osgi.framework.VersionRange;
 
 /**
  * The bundle native code plugin
@@ -253,8 +253,8 @@ final class NativeCodePlugin extends AbstractIntegrationService<NativeCodePlugin
 
             for (String versionRange : getCollection(osversionParam.getValue())) {
                 VersionRange vr;
-                vr = VersionRange.parse(versionRange);
-                if (vr.isInRange(currentVersion)) {
+                vr = new VersionRange(versionRange);
+                if (vr.includes(currentVersion)) {
                     versionMatch = true;
                     break;
                 }

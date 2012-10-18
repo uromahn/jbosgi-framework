@@ -21,15 +21,12 @@ package org.jboss.osgi.framework.internal;
  * #L%
  */
 
-import org.jboss.osgi.framework.Constants;
-import org.jboss.osgi.testing.OSGiFrameworkTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.osgi.framework.ServiceRegistration;
-import org.osgi.service.url.AbstractURLStreamHandlerService;
-import org.osgi.service.url.URLConstants;
-import org.osgi.service.url.URLStreamHandlerService;
-import org.osgi.service.url.URLStreamHandlerSetter;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -51,12 +48,15 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.ServiceLoader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.jboss.osgi.framework.Constants;
+import org.jboss.osgi.testing.OSGiFrameworkTest;
+import org.junit.Assert;
+import org.junit.Test;
+import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.url.AbstractURLStreamHandlerService;
+import org.osgi.service.url.URLConstants;
+import org.osgi.service.url.URLStreamHandlerService;
+import org.osgi.service.url.URLStreamHandlerSetter;
 
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>

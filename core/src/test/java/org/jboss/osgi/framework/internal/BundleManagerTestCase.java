@@ -22,15 +22,15 @@ package org.jboss.osgi.framework.internal;
  */
 
 
+import static org.jboss.osgi.framework.internal.BundleManagerPlugin.getOSVersionInOSGiFormat;
+
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Version;
-
-import java.util.Properties;
-
-import static org.jboss.osgi.framework.internal.BundleManagerPlugin.getOSVersionInOSGiFormat;
 
 /**
  * Unit tests for the FrameworkState class.

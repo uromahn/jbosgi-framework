@@ -21,17 +21,17 @@ package org.jboss.osgi.framework.internal;
  * #L%
  */
 
-import org.jboss.modules.Module;
-import org.jboss.modules.ModuleClassLoader;
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.net.URL;
 import java.net.URLStreamHandlerFactory;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleClassLoader;
+import org.junit.Test;
 
 /**
  * Test whether we can load a service through the framework module

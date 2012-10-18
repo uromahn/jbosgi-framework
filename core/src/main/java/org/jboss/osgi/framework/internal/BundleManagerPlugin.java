@@ -61,7 +61,6 @@ import org.jboss.osgi.framework.spi.FrameworkBuilder;
 import org.jboss.osgi.framework.spi.StartLevelPlugin;
 import org.jboss.osgi.framework.spi.StorageState;
 import org.jboss.osgi.metadata.OSGiMetaData;
-import org.jboss.osgi.metadata.VersionRange;
 import org.jboss.osgi.resolver.XBundle;
 import org.jboss.osgi.resolver.XBundleRevision;
 import org.jboss.osgi.resolver.XEnvironment;
@@ -74,6 +73,7 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.Version;
+import org.osgi.framework.VersionRange;
 import org.osgi.resource.Resource;
 
 /**
@@ -307,7 +307,7 @@ final class BundleManagerPlugin extends AbstractIntegrationService<BundleManager
         Set<XBundle> resultSet = new HashSet<XBundle>();
         for (XBundle aux : getBundles(null)) {
             if (symbolicName == null || symbolicName.equals(aux.getSymbolicName())) {
-                if (versionRange == null || VersionRange.parse(versionRange).isInRange(aux.getVersion())) {
+                if (versionRange == null || new VersionRange(versionRange).includes(aux.getVersion())) {
                     resultSet.add(aux);
                 }
             }

@@ -21,6 +21,14 @@ package org.jboss.test.osgi.modules;
  * #L%
  */
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.net.URL;
+import java.util.Collections;
+import java.util.ServiceLoader;
+
 import org.jboss.modules.DependencySpec;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
@@ -38,14 +46,6 @@ import org.jboss.test.osgi.modules.a.Foo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URL;
-import java.util.Collections;
-import java.util.ServiceLoader;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Test usage of the java.util.ServiceLoader API
