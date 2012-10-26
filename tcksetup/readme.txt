@@ -3,9 +3,8 @@ Setup the OSGi TCK
 
 Checkout the OSGi TCK 
 
-		svn co https://www.osgi.org/members/svn/build/tags/r4v42-core-cmpn-final
-	or
-		svn co https://svn.devel.redhat.com/repos/jboss-tck/osgitck/r4v42
+		git clone https://www.osgi.org/members/git/build org.osgi.build
+		git checkout r5-core-ri-ct-final
 	
 Copy and edit the setup properties
 
@@ -28,4 +27,4 @@ Running the OSGi TCK against the JBoss OSGi Framework
 Running Tests with JPDA
 -----------------------
 
-export ANT_OPTS="-Djpda=-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
+export JPDA_OPTS="-Djpda=-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
