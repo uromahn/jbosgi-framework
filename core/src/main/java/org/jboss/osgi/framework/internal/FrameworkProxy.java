@@ -145,7 +145,7 @@ final class FrameworkProxy implements Framework, Adaptable {
             bundleManager = (BundleManagerPlugin) frameworkBuilder.createFrameworkServices(serviceContainer, firstInit);
             bundleManager.setManagerState(Bundle.STARTING);
 
-            ServiceTracker<Object> serviceTracker = new ServiceTracker<Object>();
+            ServiceTracker<Object> serviceTracker = new ServiceTracker<Object>("Framework.init");
             frameworkBuilder.installServices(FrameworkPhase.CREATE, serviceTarget, serviceTracker);
             frameworkBuilder.installServices(FrameworkPhase.INIT, serviceTarget, serviceTracker);
 
@@ -195,7 +195,7 @@ final class FrameworkProxy implements Framework, Adaptable {
         LOGGER.debugf("Start framework");
         try {
 
-            ServiceTracker<Object> serviceTracker = new ServiceTracker<Object>();
+            ServiceTracker<Object> serviceTracker = new ServiceTracker<Object>("Framework.start");
             frameworkBuilder.installServices(FrameworkPhase.ACTIVE, bundleManager.getServiceTarget(), serviceTracker);
 
             // Wait for all CREATE and INIT services to complete
