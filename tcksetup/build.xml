@@ -46,6 +46,8 @@
     <property name="framework.groupId" value="org/jboss/osgi/framework" />
     <property name="framework.artifactId" value="jbosgi-framework-aggregated" />
     <property name="framework.jar" value="${framework.artifactId}-${framework.version}-all.jar" />
+    <property name="framework.target.jar" value="org.jboss.osgi.framework-3.0.0.jar" />
+    <property name="framework.target.path" value="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.framework/${framework.target.jar}" />
 
     <echo>************************************************</echo>
     <echo message="framework.jar=${framework.jar}" />
@@ -60,9 +62,6 @@
     <property name="framework.jar.path" value="${maven.local.repository}/${framework.groupId}/${framework.artifactId}/${framework.version}/${framework.jar}" />
     <available property="framework.jar.available" file="${framework.jar.path}" />
     <fail message="Cannot find: ${framework.jar.path}" unless="framework.jar.available" />
-
-  	<!-- Add a missing directory that prevents the build - ->
-  	<mkdir dir="${tck.checkout.dir}/osgi.companion/src"/-->
   </target>
 
   <!-- ================================================================== -->
@@ -71,24 +70,12 @@
 
   <!-- Setup the TCK to use the RI (equinox) -->
   <target name="setup.ri" description="Setup the TCK using the RI (Equinox)" depends="init">
-
-    <!-- Overlay the TCK setup -->
-    <copy todir="${tck.checkout.dir}" overwrite="true">
-      <fileset dir="${basedir}/overlay.ri" />
-    </copy>
-  	
     <!-- Build the TCK -->
     <ant dir="${tck.checkout.dir}" target="build" />
   </target>
 
   <!-- Setup the TCK to use the Vendor Implemenation -->
   <target name="setup.vi" description="Setup the TCK using the Vendor Implemenation" depends="init,update-framework">
-
-    <!-- Overlay the TCK setup -->
-    <copy todir="${tck.checkout.dir}" overwrite="true">
-      <fileset dir="${basedir}/overlay.vi" />
-    </copy>
-
     <!-- Build the TCK -->
     <ant dir="${tck.checkout.dir}" target="build" />
   </target>
@@ -97,7 +84,7 @@
   <target name="update-framework" description="Update the JBoss OSGi Framework" depends="init">
     <!-- Copy the OSGi Framework -->
     <mkdir dir="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.framework" />
-    <copy file="${framework.jar.path}" tofile="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.framework/org.jboss.osgi.framework-3.0.0.jar" 
+    <copy file="${framework.jar.path}" tofile="${framework.target.path}" 
     	overwrite="true" />
   </target>
 
@@ -105,9 +92,20 @@
   <!-- TCK Tests                                                          -->
   <!-- ================================================================== -->
 
-  <target name="run-core-tests" description="Run the TCK core tests" depends="init">
+  <target name="run-core-tests" description="Run the TCK core tests" depends="init,update-framework">
     <fail message="Cannot find: ${tck.checkout.dir}" unless="tck.checkout.dir.available" />
-    <ant dir="${tck.checkout.dir}/osgi.ct" target="osgi.ct.core" />
+
+  	<delete dir="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core"/>
+  	<copy file="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core.jar" tofile="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core.backup.jar" overwrite="false"/>
+  	<unjar src="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core.jar" dest="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core"/>
+  	<delete file="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core/jar/org.eclipse.osgi-3.8.0.jar" />
+  	<copy file="${framework.target.path}" tofile="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core/jar/${framework.target.jar}"/>
+    <copy todir="${tck.checkout.dir}" overwrite="true">
+      <fileset dir="${basedir}/overlay.vi" />
+    </copy>
+  	<jar basedir="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core" destfile="${tck.checkout.dir}/osgi.ct/generated/osgi.ct.core.jar" />
+  	
+  	<ant dir="${tck.checkout.dir}/osgi.ct" target="osgi.ct.core" />
   </target>
 
   <target name="test-reports" description="Generate the TCK test reports" depends="init">
