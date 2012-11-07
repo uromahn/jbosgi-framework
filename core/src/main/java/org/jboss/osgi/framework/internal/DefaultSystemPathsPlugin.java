@@ -30,7 +30,6 @@ import static org.osgi.framework.Constants.FRAMEWORK_BUNDLE_PARENT_EXT;
 import static org.osgi.framework.Constants.FRAMEWORK_SYSTEMPACKAGES;
 import static org.osgi.framework.Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -48,6 +47,7 @@ import org.jboss.osgi.framework.spi.AbstractIntegrationService;
 import org.jboss.osgi.framework.spi.FrameworkBuilder;
 import org.jboss.osgi.framework.spi.IntegrationServices;
 import org.jboss.osgi.framework.spi.SystemPathsPlugin;
+import org.jboss.osgi.metadata.spi.ElementParser;
 
 /**
  * A plugin manages the Framework's system packages.
@@ -266,13 +266,7 @@ final class DefaultSystemPathsPlugin extends AbstractIntegrationService<SystemPa
     }
 
     private List<String> packagesAsList(String sysPackages) {
-        List<String> result = new ArrayList<String>();
-        for (String name : sysPackages.split(",")) {
-            name = name.trim();
-            if (name.length() > 0)
-                result.add(name);
-        }
-        return result;
+    	return ElementParser.parseDelimitedString(sysPackages, ',');
     }
 
     private void assertInitialized() {
